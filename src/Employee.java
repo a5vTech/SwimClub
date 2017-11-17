@@ -1,9 +1,13 @@
 public class Employee {
     //Fields
 
-    String firstName;
-    String lastName;
-    String title;
+    protected String firstName;
+    protected String lastName;
+    protected String title;
+    protected int phoneNumber;
+    protected String Adress;
+
+
 
 
     //Constructor
@@ -11,6 +15,8 @@ public class Employee {
     //Overloaded constructors
 
     //Getters
+
+
 
     //Setters
 
