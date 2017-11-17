@@ -29,19 +29,24 @@ public class SwimClubMain {
                 option = userInput.nextInt();
                 if (option == 1) {
                     //Opret medlem
-                    System.out.print("Enter members first name: ");
+                    System.out.print("Medlemmets fornavn: ");
                     String firstname = userInput.next();
-                    System.out.print("Enter members last name: ");
+                    System.out.print("Medlemmets efternavn: ");
                     String lastname = userInput.next();
-                    System.out.print("Enter members age: ");
+                    System.out.print("Medlemmets alder: ");
                     int age = userInput.nextInt();
-                    System.out.print("Male or Female (M or F): ");
+                    System.out.print("Medlemmets køn (M/D): ");
                     String gender = userInput.next();
-                    System.out.print("Enter members adress: ");
+                    System.out.print("Medlemmets adresse: ");
                     userInput.nextLine(); //Empty read line to finish reading current line
                     String adress = userInput.nextLine();
-                    System.out.print("Enter membership status (Active or Passive (A/P): ");
-                    Boolean membershipStatus; //True = aktiv - false = passiv
+                    System.out.print("Medlemmets status (Aktiv/Passiv (A/P): ");
+                    String strMembershipStatus = userInput.next();
+                    Boolean membershipStatus = false; //True = aktiv - false = passiv
+                    if(strMembershipStatus.equalsIgnoreCase("A")){
+                        membershipStatus = true;
+                    }
+                    System.out.print("Enter membership type (Competitor or  ");
                     Boolean competitor; //true = konkurrencesvømmer - false = motionist
 
                     //TODO Create member method - createMember();
