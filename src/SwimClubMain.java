@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class SwimClubMain {
     public static void main(String[] args) {
         mainMenu();
@@ -6,7 +7,7 @@ public class SwimClubMain {
     }
 
     //Methods
-    public static void mainMenu(){
+    public static void mainMenu() {
         Scanner userInput = new Scanner(System.in);
         //Main menu
         System.out.println("Login som:\n1) Formand\n2) Kasserer\n3) Træner");
@@ -14,7 +15,7 @@ public class SwimClubMain {
 
         int option = userInput.nextInt();
 
-        switch (option){
+        switch (option) {
             /*
                 Case 1 = Formand menu
                 Case 2 = Kasserer menu
@@ -26,41 +27,46 @@ public class SwimClubMain {
                 //Formand
                 System.out.println("1) Opret nyt medlem\n2) Opdater medlems oplysninger");
                 option = userInput.nextInt();
-
-                if(option == 1){
+                if (option == 1) {
                     //Opret medlem
                     //TODO Create member method - createMember();
-                } else{
+                } else {
                     //Opdater medlem
                     //TODO Create update member method - updateMember();
                 }
-
-
-                //TODO Tilføj mulighed for at oprette nye medlemmer
-
-
                 break;
             case 2:
                 //Kasserer
                 System.out.println("1) Se oversigt over medlemmer i restance\n2) Registrer betalinger");
                 option = userInput.nextInt();
 
-                if(option == 1){
-
-                } else{
-
+                if (option == 1) {
+                    //TODO add  showMembers("Restance"); method
+                } else {
+                    //TODO add registerPayment(); method
                 }
-                //TODO Tilføj oversigt over medlemmer i restance
                 break;
             case 3:
                 //Træner
                 System.out.println("1) Se top 5\n2) Registrer rekorder");
-
+                option = userInput.nextInt();
+                if (option == 1) {
+                    //TODO add showTopFive(); method
+                } else {
+                    //TODO add registerRecords(); method
+                }
                 break;
 
         }
     }
-//COMMENT
-//dsds
+    /*  METHODS
+    *   createMember();
+    *   updateMember();
+    *   loadMemberData();
+    *
+    *   showMembers();
+    *   registerPayments();
+    *   registerRecords();
+    */
 
 }
