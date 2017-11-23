@@ -7,10 +7,12 @@ public class Cashier  extends Employee{
    */
 
 
-
     //Fields
 
     //Constructor
+    public Cashier(String firstName, String lastName, String adress, int phoneNumber){
+        super("Cashier",firstName,lastName,adress,phoneNumber);
+    }
 
     //Overloaded constructors
 
