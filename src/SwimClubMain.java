@@ -5,6 +5,7 @@ public class SwimClubMain {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
     public static ArrayList<Member> memberList = new ArrayList<>();
 
+
     public static void main(String[] args) throws FileNotFoundException {
         //Import Data
         importEmployeeData();
@@ -21,25 +22,28 @@ public class SwimClubMain {
 
     //Methods
 
-    public static void mainMenu() {
+    public static void mainMenu() throws FileNotFoundException {
+        System.out.println("Velkommen til Svømmeklubben Delfinens medlemssystem");
         Scanner userInput = new Scanner(System.in);
         //Main menu
         boolean quit = false;
         do {
-            System.out.println("Log ind som:\n1) Formand\n2) Kasserer\n3) TrÃ¦ner\n0) Afslut program");
+            System.out.println("\nHOVEDMENU\n1) Formand menu\n2) Kasserer menu\n3) Træner menu\n0) Afslut program");
+            System.out.print("Vælg: ");
             int option = userInput.nextInt();
 
             switch (option) {
                /*
                    Case 1 = Formand menu
                    Case 2 = Kasserer menu
-                   Case 3 = TrÃ¦ner menu
+                   Case 3 = Træner menu
                    Case 0 = Afslut program
                */
 
                 case 1:
                     //Formand
-                    System.out.println("1) Opret nyt medlem\n2) Opdater medlems oplysninger\n3) Opret ny ansat\n4) Opdater ansattes oplysninger\n0) Tilbage");
+                    System.out.println("\nFORMAND\n1) Opret nyt medlem\n2) Opdater medlems oplysninger\n3) Opret ny ansat\n4) Opdater ansattes oplysninger\n0) Tilbage");
+                    System.out.print("Vælg: ");
                     option = userInput.nextInt();
                     if (option == 1) {
                         createMember(userInput);
@@ -47,67 +51,100 @@ public class SwimClubMain {
                         //Opdater medlem
                         //TODO Create update member method - updateMember();
                     } else if (option == 3) {
-                        //Opret ny ansat
-                        createEmployee(userInput);
+                        System.out.println("\n1) Opret ny formand\n2) Opret ny kasserer\n3) Opret ny træner\n0) Tilbage");
+                        System.out.print("Vælg: ");
+                        option = userInput.nextInt();
+                        userInput.nextLine();
+                        if (option == 1) { //Ny formand
+                            System.out.println("\nNuværende formand:");
+                            int indexOfManager = -1;
+                            for (int i = 0; i < employeeList.size(); i++) {
+                                if (employeeList.get(i) instanceof Manager) {
+                                    System.out.println("Navn: " + employeeList.get(i).getName() + "\nAdresse: " + employeeList.get(i).getAddress() + "\nTelefonnummer: " + employeeList.get(i).getPhoneNumber());
+                                    indexOfManager = i;
+                                }
+                            }
+                            System.out.println("\nNy formand");
+                            Employee employee = createEmployee(userInput, 1);
+                            if (indexOfManager == -1) {
+                                employeeList.add(employee);
+                            } else {
+                                employeeList.set(indexOfManager, employee);
+                            }
+                        } else if (option == 2) { //Ny kasserer
+                            System.out.println("\nNuværende kasserer:");
+                            int indexOfCashier = -1;
+                            for (int i = 0; i < employeeList.size(); i++) {
+                                if (employeeList.get(i) instanceof Cashier) {
+                                    System.out.println("Navn: " + employeeList.get(i).getName() + "\nAdresse: " + employeeList.get(i).getAddress() + "\nTelefonnummer: " + employeeList.get(i).getPhoneNumber());
+                                    indexOfCashier = i;
+                                }
+                            }
+                            System.out.println("\nNy kasserer");
+                            Employee employee = createEmployee(userInput, 2);
+                            if (indexOfCashier == -1) {
+                                employeeList.add(employee);
+                            } else {
+                                employeeList.set(indexOfCashier, employee);
+                            }
+                        } else if (option == 3) { //Ny træner
+                            System.out.println("\nNy Træner:");
+                            Employee employee = createEmployee(userInput, 3);
+                            employeeList.add(employee);
+
+                        } else {
+                            break;
+                        }
+
                     } else if (option == 4) {
                         //Opdater ansat
                         //TODO Create update employee method - updateEmployee();
-                        break;
 
                     } else {
-                        //GÃ¥ tilbage til mainMenu
+                        //Gå tilbage til mainMenu
                     }
                     break;
                 case 2:
                     //Kasserer
-                    System.out.println("1) Se oversigt over medlemmer i restance\n2) Registrer betalinger\n0) Tilbage");
+                    System.out.println("\nKASSERER\n1) Registrer betaling\n0) Tilbage");
+                    System.out.print("Vælg: ");
                     option = userInput.nextInt();
 
                     if (option == 1) {
-                        //TODO add  showMembers("Restance"); method
-                    } else if (option == 0) {
-                        //GÃ¥ tilbage til mainMenu
+                        showArrearMembers(userInput);
                         break;
                     } else {
-                        //TODO add registerPayment(); method
+                        //Gå tilbage til mainMenu
+                        break;
                     }
-                    break;
+
                 case 3:
-                    //TrÃ¦ner
-                    System.out.println("1) Se top 5\n2) Registrer rekorder\n3) Registrer stÃ¦vne\n0) Tilbage");
+                    //Træner
+                    System.out.println("\nTRÆNER\n1) Se top 5\n2) Registrer rekord\n3) Registrer stævnetid\n0) Tilbage");
+                    System.out.print("Vælg: ");
                     option = userInput.nextInt();
                     if (option == 1) {
-                        System.out.println("VÃ¦lg hvilken disciplin du vil se en top 5 af");
-                        System.out.println("1) Butterfly\n2)Crawl\n3) Rygcrawl\n4) BrystsvÃ¸mning\n5) HundesvÃ¸mning");
-                        option = userInput.nextInt();
-                        //TODO (Move switch to method) showTopFive(Diciplin);
-                        switch (option) {
-                            case 1: //Butterfly top 5
-                                break;
-                            case 2: //Crawl
-                                break;
-                            case 3: //Rygcrawl
-                                break;
-                            case 4: //BrystsvÃ¸mning
-                                break;
-                            case 5: //HundesvÃ¸mning
-                                break;
-                            default: //Hvis andet end "Disciplin"
-                                break;
-
-                        }
-                        //TODO add showTopFive(); method
+                        showTopFive(userInput);
                     } else if (option == 2) {
-                        System.out.println("Register Record");
-                        //TODO Show list of competitors
-                        System.out.println("Enter id of the member you want to add the record to");
-                        //TODO add registerRecords(); method
+                        System.out.println("Registrer rekord");
+                        for (int k = 0; k < memberList.size(); k++) {
+                            if (memberList.get(k).getMembershipType()) { //Hvis medlemmet er konkurrencesvømmer
+                                System.out.println((k + 1) + ")" + memberList.get(k).getFirstName() + " " + memberList.get(k).getLastName() + " " + memberList.get(k).getPhoneNumber());
+                            } else {
+                                System.out.print("NNNOOOOOOOO");
+                            }
+                        }
+                        System.out.println("Hvilken svømmer vil du indtaste rekord for?");
+                        int choice = userInput.nextInt() - 1;
+                        registerRecord(userInput, choice);
+                        System.out.println("ID: " + choice + " MEMBER: " + memberList.get(choice).getFirstName());
                         break;
                     } else {
-                        System.out.println("Enter competition");
+                        System.out.println("Registrer stævne");
                         // TODO add enterCompetion(); method
                         break;
                     }
+                    break;
                 case 0:
                     //Afslut program
                     quit = true;
@@ -117,11 +154,63 @@ public class SwimClubMain {
         System.out.println("Tak og farvel.");
     }
 
+    public static void registerRecord(Scanner userInput, int choice) throws FileNotFoundException {
+        System.out.print("Hvilket stævne: ");
+        userInput.nextLine();
+        String competition = userInput.next();
+        System.out.println("Dato: ");
+        String date = userInput.next();
+        System.out.println("Tid i minutter og sekunder: ");
+        System.out.print("Indtast antal minutter: ");
+        int minutes = userInput.nextInt();
+        System.out.print("Indtast antal sekunder: ");
+        int seconds = userInput.nextInt();
+        int time = (minutes * 60) + seconds;
+        for (int i = 0; i < memberList.get(choice).getDisciplineList().size(); i++) {
+            System.out.println((i + 1) + ")" + memberList.get(choice).getDiscipline(i));
+        }
+        System.out.println("");
+        System.out.print("Vælg disciplin: ");
+        int option = userInput.nextInt();
+        Record record = new Record(memberList.get(choice).getDiscipline(option - 1), competition, date, time);
+        memberList.get(choice).updateRecordList(record);
+    }
+
+    public static void showTopFive(Scanner userInput) {
+        System.out.println("\nInden for hvilken disciplin vil du se top 5?");
+        System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) Brystsvømning\n5) Hundesvømning");
+        System.out.print("Vælg: ");
+        int option = userInput.nextInt();
+        Discipline discipline = new Discipline(option);
+        Member[] topFive = new Member[5];
+        ArrayList<Member> recordMembers = new ArrayList<>();
+        for (int i = 0; i < memberList.size(); i++) { //Tjek alle medlemmer
+            if (memberList.get(i).getMembershipType()) { //Hvis medlem er konkurrencesvømmer
+                for (int k = 0; k < memberList.get(i).getRecordList().size(); k++) {
+                    if (memberList.get(i).getRecordList().get(k).getDiscipline().getDiscipline().equals(discipline.getDiscipline())) {
+                        memberList.get(i).setRecord(discipline);
+                      /*  memberList.get(i).setDogPaddleRecord();
+                        memberList.get(i).setBackstrokeRecord();
+                        memberList.get(i).setBreaststrokeRecord();
+                        memberList.get(i).setButterflyRecord(); */
+                    }
+                }
+                recordMembers.add(memberList.get(i));
+
+            }
+        }
+        Collections.sort(recordMembers);
+        for (int i = 0; i < 5; i++) {
+            System.out.println(recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " RECORD: " + recordMembers.get(i).getBestRecord());
+        }
+
+    }
+
     public static void importEmployeeData() throws FileNotFoundException {
         Scanner employeeData = new Scanner(new File("Data/employee.txt"));
         while (employeeData.hasNextLine()) {
             String line = employeeData.nextLine();
-            String[] arr = line.split(",");
+            String[] arr = line.split(";");
             if (arr[0].equalsIgnoreCase("Manager")) {
                 Employee manager = new Manager(arr[1], arr[2], arr[3], Integer.parseInt(arr[4]));
                 employeeList.add(manager);
@@ -132,7 +221,7 @@ public class SwimClubMain {
                 Employee coach = new Coach(arr[1], arr[2], arr[3], Integer.parseInt(arr[4]));
                 employeeList.add(coach);
             } else {
-                System.out.println("Fejl i indlÃ¦sning af data");
+                System.out.println("Fejl i indlæsning af data");
             }
         }
     }
@@ -146,188 +235,214 @@ public class SwimClubMain {
     //dummy comment
 
     public static void createMember(Scanner userInput) {
+        System.out.println("\nNYT MEDLEM");
+        System.out.println("1) Konkurrencesvømmer\n2) Motionist");
+        System.out.print("Vælg: ");
+        int choice = userInput.nextInt();
+        boolean membershipType = false; //True = Konkurrencesvømmer, False = Motionist
+        if (choice == 1) {
+            membershipType = true;
+        } else {
+            membershipType = false;
+        }
         userInput.nextLine();
-        System.out.print("Medlemmets fornavn(e): ");
+        System.out.print("\nIndtast fornavn(e): ");
         String firstName = userInput.nextLine();
-        System.out.print("Medlemmets efternavn: ");
+        System.out.print("Indtast efternavn: ");
         String lastName = userInput.next();
-        System.out.print("Medlemmets alder: ");
+        System.out.print("Indtast alder: ");
         int age = userInput.nextInt();
-        System.out.print("Medlemmets kÃ¸n Mand/Kvinde (M/K): "); //True = Kvinde, False = Mand
+        System.out.print("Indtast køn - Mand/Kvinde (M/K): "); //True = Kvinde, False = Mand
         String genderChoice = userInput.next();
         Boolean gender = false;
         if (genderChoice.equalsIgnoreCase("K")) {
             gender = true;
         }
-        System.out.print("Medlemmets adresse: ");
+        System.out.print("Indtast adresse: ");
         userInput.nextLine(); //Empty read line to finish reading current line
         String address = userInput.nextLine();
-        System.out.print("Medlemmets email: ");
+        System.out.print("Indtast email: ");
         String email = userInput.nextLine();
-        System.out.print("Medlemmets telefonnummber: ");
+        System.out.print("Indtast telefonnummber: ");
         int phoneNumber = userInput.nextInt();
-        System.out.print("Medlemmets medlemsstatus Aktiv/Passiv (A/P): ");
-        String strMembershipStatus = userInput.next();
-        Boolean membershipStatus = false; //True = aktiv, false = passiv
-        if (strMembershipStatus.equalsIgnoreCase("A")) {
-            membershipStatus = true;
-        }
+        Boolean membershipStatus = true; //True, da medlemskab er aktivt ved oprettelse
         Member member = new Member(firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, false);
-        System.out.print("Medlemmets medlemstype Konkurrence/Motionist (K/M): ");
-        String choice = userInput.next();
-        Boolean membershipType = false;
-        if (choice.equalsIgnoreCase("K")) {
-            membershipType = true; //True = KonkurrencesvÃ¸mmer, False = Motionist
+        if (membershipType) {
             createCompetitor(userInput, member);
-            member.setHasPaid(true);
         }
-        System.out.println("BekrÃ¦ft fÃ¸lgende oplysninger:");
+        member.setMembershipType(membershipType);
+
+        confirmDetails(userInput, member);
+
+        System.out.println("Medlem oprettet.");
+        memberList.add(member);
+    }
+
+    public static void confirmDetails(Scanner userInput, Member member) {
+        System.out.println("\nINDTASTEDE OPLYSNINGER\n----------------------");
         System.out.println("Fornavn: " + member.getFirstName());
         System.out.println("Efternavn: " + member.getLastName());
         System.out.println("Alder: " + member.getAge());
-        System.out.println("KÃ¸n: " + member.getStrGender());
+        System.out.println("Køn: " + member.getStrGender());
         System.out.println("Adresse: " + member.getAddress());
         System.out.println("E-mail: " + member.getEmail());
         System.out.println("Telefon Nummer: " + member.getPhoneNumber());
         System.out.println("Medlemsstatus: " + member.getStrMembershipStatus());
-        System.out.println("medlemstype: " + member.getStrMembershipType());
-        if (membershipType == true) {
-            System.out.println("TrÃ¦ner: " + member.strCoach());
-            System.out.println("Disicplin:" + member.printDiscipline());
+        System.out.println("Medlemstype: " + member.getStrMembershipType());
+        if (member.getMembershipType() == true) {
+            System.out.println("Tilknyttet træner: " + member.strCoach());
+            System.out.println("Disciplin(er):" + member.printDiscipline());
         }
-        System.out.println("Er oplysninger korrekt?\n1) Ja\n2) Nej");
+        System.out.println("\nEr oplysningerne korrekte?\n1) Ja\n2) Nej");
+        System.out.print("Vælg: ");
         int option = userInput.nextInt();
         if (option == 2) {
             updateMember(userInput, member);
         }
-        System.out.println("Medlem oprettet");
-        memberList.add(member);
     }
 
-    public static void registerPayment(Scanner userInput) {
-        System.out.println("Indtast mail til medlem:");
-        String mail = userInput.next();
-        int index = 0;
-        for (Member member : memberList) {
-            if (member.getEmail() == mail) { // Leder efter userInput
-                if (member.getHasPaid() == false) {
-                    System.out.println("Der betales: " + member.getSubscription());
-                    member.setHasPaid(true);
-                } else {
-                    System.out.println("Der er i forvejen registreret en betaling");
-                    System.out.println(member.getFirstName() + member.getLastName() + "har fÃ¥et registreret en betaling pÃ¥" + member.getSubscription() + "kr.");
-                }
-            }
-            index++;
-        }
-        if (index == memberList.size()) { //
-            System.out.println("Mail findes ikke"); // Index er kÃ¸rt hele listen igennem uden et match
-        }
-    }
 
     public static void updateMember(Scanner userInput, Member member) {
-        System.out.println("Hvad vil du Ã¦ndre:\n1) Fornavn\n2) Efternavn\n3) Alder\n4) Adresse\n5) Email\n6) Tlf.nr\n7) TrÃ¦ner\n8) Disciplin ");
+        if (!member.getMembershipType()) {
+            System.out.println("\nHvad vil du ændre?\n1) Fornavn\n2) Efternavn\n3) Alder\n4) Adresse\n5) Email\n6) Telefonnummer");
+        } else {
+            System.out.println("\nHvad vil du ændre:\n1) Fornavn\n2) Efternavn\n3) Alder\n4) Adresse\n5) Email\n6) Telefonnummer\n7) Træner\n8) Disciplin ");
+        }
         String input;
+        System.out.print("Vælg: ");
         int option = userInput.nextInt();
         switch (option) {
             case 1:
                 // Fornavn
+                System.out.println("Indtastede fornavn: " + member.getFirstName());
                 System.out.print("Indtast nyt fornavn: ");
                 input = userInput.next();
                 member.setFirstName(input);
-                System.out.println("Fornavn Ã¦ndret");
+                System.out.println("Fornavn ændret.");
                 break;
             case 2:
                 //Efternavn
+                System.out.println("Indtastede efternavn: " + member.getLastName());
                 System.out.print("Indtast nyt efternavn: ");
                 input = userInput.next();
                 member.setLastName(input);
-                System.out.println("Efternavn Ã¦ndret");
+                System.out.println("Efternavn ændret.");
                 break;
             case 3:
                 //Alder
+                System.out.println("Indtastede alder: " + member.getAge());
                 System.out.println("Indtast ny alder");
                 option = userInput.nextInt();
                 member.setAge(option);
-                System.out.println("Alder Ã¦ndret");
+                System.out.println("Alder ændret.");
                 break;
             case 4:
                 //Adresse
+                System.out.println("Indtastede adresse: " + member.getAddress());
                 System.out.println("Indtast ny adresse");
                 input = userInput.next();
                 member.setAddress(input);
-                System.out.println("Adresse Ã¦ndret");
+                System.out.println("Adresse ændret.");
                 break;
             case 5:
                 //Email
+                System.out.println("Indtastede email: " + member.getEmail());
                 System.out.println("Indtast ny email");
                 input = userInput.next();
                 member.setEmail(input);
-                System.out.println("Email Ã¦ndret");
+                System.out.println("Email ændret.");
                 break;
             case 6:
                 //Tlf.nr
-                System.out.println("Indtast nyt tlf.nr");
+                System.out.println("Indtastede telefonnummer: " + member.getPhoneNumber());
+                System.out.println("Indtast nyt telefonnummer");
                 option = userInput.nextInt();
                 member.setPhoneNumber(option);
-                System.out.println("Telefonnummer Ã¦ndret");
+                System.out.println("Telefonnummer ændret.");
                 break;
             case 7:
-                //TrÃ¦ner
+                //Træner
                 if (member.getMembershipType()) {
-                    System.out.print("VÃ¦lg trÃ¦ner: ");
+                    System.out.println("Tilknyttede træner: " + member.strCoach());
+                    System.out.println("Tilknyt ny træner");
                     showCoaches();
+                    System.out.print("Vælg: ");
                     option = userInput.nextInt();
                     member.setCoach(employeeList.get(option - 1));
-                }else{
-                    System.out.println("Medlemmet er ikke konkurrence svÃ¸mmer");
+                } else {
+                    System.out.println("Medlemmet er ikke konkurrencesvømmer");
                 }
                 break;
             case 8:
                 //Discipline
-                if(member.getMembershipType()) {
-                    System.out.println("VÃ¦lg disiplin");
-                    System.out.println("Du er tilknyttet den/disse disiplin(er): ");
-                    member.displayDiscipline();
-                    System.out.println("Hvilken disiplin vil du Ã¦ndre: ");
-                    int d = userInput.nextInt() - 1;
-                    System.out.println("Hvilken disiplin vil du tilfÃ¸je");
-                    System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) BrystsvÃ¸mning\n5) HundesvÃ¸mning");
+                if (member.getMembershipType()) {
+                    System.out.println("\nValgte disiplin(er):");
+                    System.out.println(member.displayDiscipline());
+                    System.out.println("Hvilken disiplin vil du ændre til?");
+                    System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) Brystsvømning\n5) Hundesvømning");
+                    System.out.print("Vælg: ");
+                    option = userInput.nextInt();
                     Discipline discipline = new Discipline(option);
-                    member.getDisciplineList().set(d, discipline);
+                    member.getDisciplineList().set(0, discipline);
                     break;
                 } else {
-                    System.out.println("Medlemmet er ikke knyttet til nogen disciplin\nda medlemmet ikke er konkurrencesvÃ¸mmer");
+                    System.out.println("Medlemmet er ikke knyttet til nogen disciplin\nda medlemmet ikke er konkurrencesvømmer");
+                    break;
                 }
         }
+        confirmDetails(userInput, member);
 
     }
 
     public static void showCoaches() {
         for (int i = 0; i < employeeList.size(); i++) {
             if (employeeList.get(i) instanceof Coach) {
-                System.out.println("" + (i + 1) + ") " + employeeList.get(i));
+                System.out.println("" + (i + 1) + ") " + employeeList.get(i).getName() + " " + employeeList.get(i).getPhoneNumber());
+            }
+        }
+    }
+
+    public static void showArrearMembers(Scanner userInput) {
+        System.out.println("\nMEDLEMSKABER I RESTANCE");
+        for (int i = 0; i < memberList.size(); i++) {
+            if (memberList.get(i).getArrear()) {
+                System.out.println((i + 1) + ") " + memberList.get(i).getFirstName() + " " + memberList.get(i).getLastName() + " " + memberList.get(i).getPhoneNumber());
+            }
+        }
+        System.out.println("0) Tilbage");
+        System.out.print("Vælg: ");
+        int option = userInput.nextInt();
+        if (option != 0) {
+            System.out.println("\n" + memberList.get(option - 1).getFirstName() + "\n" + memberList.get(option - 1).getLastName() + "\n" + memberList.get(option - 1).getPhoneNumber() + "\nBeløb i restance: " + memberList.get(option - 1).getSubscription() + ",-");
+            System.out.println("\nRegistrer betaling?\n1) Ja\n2) Nej");
+            System.out.print("Vælg: ");
+            int option2 = userInput.nextInt();
+            if (option2 == 1) {
+                memberList.get(option - 1).setArrear(false);
+                System.out.println("Betaling registreret.");
             }
         }
     }
 
     public static void createCompetitor(Scanner userInput, Member member) {
-        System.out.println("Tilknyt en trÃ¦ner: ");
+        System.out.println("\nTilknyt en træner: ");
         showCoaches();
+        System.out.print("Vælg: ");
         int option = userInput.nextInt();
         member.setCoach(employeeList.get(option - 1));
-        System.out.println("VÃ¦lg svÃ¸mme disciplin");
-        System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) BrystsvÃ¸mning\n5) HundesvÃ¸mning");
+        System.out.println("\nVælg disciplin");
+        System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) Brystsvømning\n5) Hundesvømning");
+        System.out.print("Vælg: ");
         option = userInput.nextInt();
         Discipline discipline = new Discipline(option);
         member.updateDiciplineList(discipline);
+        Record record = new Record(discipline, "LOKAL", "DATO", 99999);
+        member.updateRecordList(record);
+
     }
 
 
-    public static void createEmployee(Scanner userInput) {
-        System.out.println("1) Opret ny formand\n2) Opret ny kasserer\n3) Opret ny trÃ¦ner");
-        int option = userInput.nextInt();
-        userInput.nextLine();
+    public static Employee createEmployee(Scanner userInput, int option) {
         System.out.print("Fornavn(e): ");
         String firstName = userInput.nextLine();
         System.out.print("Efternavn: ");
@@ -335,27 +450,21 @@ public class SwimClubMain {
         userInput.nextLine(); //Tom read line for at sikre line read
         System.out.print("Adresse: ");
         String address = userInput.nextLine();
-        System.out.print("Tlf.nr: ");
+        System.out.print("Telefonnummer: ");
         int phoneNumber = userInput.nextInt();
-        switch (option) {
-            case 0:
-                break;
-            case 1:
-                Employee manager = new Manager(firstName, lastName, address, phoneNumber);
-                employeeList.add(manager);
-                break;
-            case 2:
-                Employee cashier = new Cashier(firstName, lastName, address, phoneNumber);
-                employeeList.add(cashier);
-                break;
-            case 3:
-                Employee coach = new Coach(firstName, lastName, address, phoneNumber);
-                employeeList.add(coach);
-                break;
-            default:
-                System.out.println("Indtast venligst 1,2 eller 3");
-                createEmployee(userInput);
-                break;
+
+        if (option == 1) {
+            Employee manager = new Manager(firstName, lastName, address, phoneNumber);
+            System.out.println("Formand opdateret.");
+            return manager;
+        } else if (option == 2) {
+            Employee cashier = new Cashier(firstName, lastName, address, phoneNumber);
+            System.out.println("Kasserer opdateret.");
+            return cashier;
+        } else {
+            Employee coach = new Coach(firstName, lastName, address, phoneNumber);
+            System.out.println("Træner opdateret.");
+            return coach;
         }
     }
 
@@ -364,22 +473,41 @@ public class SwimClubMain {
         while (memberData.hasNextLine()) {
             // if (memberData.nextLine() != null) {
             String line = memberData.nextLine();
-            String[] arr = line.split(",");
+            String[] arr = line.split(";");
+            //System.out.print(Arrays.toString(arr));
+//            System.out.println("DEBUGMEDCAPS " + arr.length + " " + Arrays.toString(arr));
+            //System.out.println(arr2[4]);
+            int x = arr.length;
+            // System.out.println("DEBUGMEDEKSTRACAPS " + (x - 15));
             Member member = new Member(arr[0], arr[1], Integer.parseInt(arr[2]), Boolean.parseBoolean(arr[3]), arr[4], arr[5], Integer.parseInt(arr[6]), Boolean.parseBoolean(arr[7]), Boolean.parseBoolean(arr[8]));
-            if (arr.length > 11) {//Hvis medlemmet er konkurrencesvÃ¸mmer
+            if (arr.length > 11) {//Hvis medlemmet er konkurrencesvømmer
                 member.setMembershipType(true);
                 for (int i = 0; i < employeeList.size(); i++) {
-                    if (employeeList.get(i).getPhoneNumber() == Integer.parseInt(arr[12])) {
+                    if (employeeList.get(i).getPhoneNumber() == Integer.parseInt(arr[13])) {
                         member.setCoach(employeeList.get(i));
                     }
                 }
                 //ADD DISCIPLINES
-                for (int i = 0; i < arr.length - 13; i++) {
-                    Discipline d = new Discipline(arr[i + 13]);
-                    member.updateDiciplineList(d);
+                for (int i = 0; i < Integer.parseInt(arr[15]); i++) {
+//                    System.out.print("\n\nDEBUGGGGGG: " + arr[i + 16] + "\n\n");
+                    Discipline discipline = new Discipline(arr[i + 16]);
+                    member.updateDiciplineList(discipline);
+                }
+                //ADD Records
+                for (int i = 15 + Integer.parseInt(arr[15]) + 1; i < arr.length; i += 4) {
+                    Discipline discipline = new Discipline(0);
+                    for (int k = 0; k < member.getDisciplineList().size(); k++) {
+                        if (arr[i].equalsIgnoreCase(member.getDisciplineList().get(k).getDiscipline())) {
+                            discipline = member.getDisciplineList().get(k);
+                        }
+                    }
+                    Record record = new Record(discipline, arr[i + 1], arr[i + 2], Integer.parseInt(arr[i + 3]));
+                    member.updateRecordList(record);
                 }
 
+
             }
+
             memberList.add(member);
             //  }
         }

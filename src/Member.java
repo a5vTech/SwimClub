@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Member {
+public class Member implements Comparable<Member> {
     private String firstName;
     private String lastName;
     private int age;
@@ -9,15 +9,19 @@ public class Member {
     private String email;
     private int phoneNumber;
     private Boolean membershipStatus; //True = aktivt, False = passivt 
-    private Boolean membershipType; //True = KonkurrencesvÃƒÂ¸mmer, False = Motionist
+    private Boolean membershipType = false; //True = Konkurrencesv�?¸mmer, False = Motionist
     private Boolean membershipAgeGroup = false; //True = Junior, False = Senior
     private double subscription;
     private Employee coach;
-    private Boolean hasPaid;
+    private Boolean arrear = false; //True = i restance, False = ikke i restance
+    private int bestRecord = 99999999;
+
     private ArrayList<Discipline> disciplineList = new ArrayList<>();
+    private ArrayList<Record> recordList = new ArrayList<>();
+
 
     // Constructors
-    public Member(String firstName, String lastName, int age, boolean gender, String address, String email, int phoneNumber, boolean membershipStatus, boolean hasPaid){
+    public Member(String firstName, String lastName, int age, boolean gender, String address, String email, int phoneNumber, boolean membershipStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -25,41 +29,46 @@ public class Member {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.hasPaid = hasPaid;
         this.membershipStatus = membershipStatus;
         subscription = Subscription();
 
     }
 
-    public String getFirstName(){
+    public Member(String firstName, String lastName, int age, boolean gender, String address, String email, int phoneNumber, boolean membershipStatus, boolean arrear) {
+        this(firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus);
+        this.arrear = arrear;
+
+    }
+
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public double getSubscription(){
+    public double getSubscription() {
         return subscription;
     }
 
-    public boolean getHasPaid(){
-        return hasPaid;
+    public boolean getArrear() {
+        return arrear;
     }
 
-    public int getAge(){
+    public int getAge() {
         return age;
     }
 
-    public String getAddress(){
+    public String getAddress() {
         return address;
     }
 
-    public int getPhoneNumber(){
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -67,16 +76,71 @@ public class Member {
         return disciplineList;
     }
 
-    public String strCoach(){
-        if(coach == null){
-            return " no coach";
+    public String strCoach() {
+        if (coach == null) {
+            return "";
         }
         String strCoach = "";
-        strCoach += coach.getTitle()+",";
-        strCoach += coach.getFirstName()+",";
-        strCoach += coach.getLastName()+",";
+        strCoach += coach.getTitle() + ";";
+        strCoach += coach.getFirstName() + ";";
+        strCoach += coach.getLastName() + ";";
+        strCoach += coach.getAddress() + ";";
         strCoach += coach.getPhoneNumber();
         return strCoach;
+    }
+
+    public void setButterflyRecord() {
+        int[] butterflyRecords = new int[recordList.size()];
+        for (int i = 0; i < recordList.size(); i++) {
+            if (recordList.get(i).getDiscipline().getDiscipline().equalsIgnoreCase("butterfly")) {
+                butterflyRecords[i] = recordList.get(i).getTimeInSeconds();
+            }
+        }
+        Arrays.sort(butterflyRecords);
+        this.bestRecord = butterflyRecords[0];
+    }
+
+
+
+
+    public void setRecord(Discipline discipline) {
+        String strDiscipline = discipline.getDiscipline();
+
+        int[] disciplineRecords = new int[recordList.size()];
+        for(int i = 0; i < recordList.size(); i++){
+            for(int k = 0; k < recordList.size(); k++){
+                if(recordList.get(k).getDiscipline().getDiscipline().equalsIgnoreCase(strDiscipline)){
+                    disciplineRecords[i] = recordList.get(k).getTimeInSeconds();
+                }
+            }
+        }
+        Arrays.sort(disciplineRecords);
+        bestRecord = disciplineRecords[0];
+    }
+
+
+
+    public int getBestRecord() {
+        return bestRecord;
+    }
+
+    public int compareTo(Member other) {
+        if (bestRecord > other.getBestRecord()) {
+            return 1;
+        } else if (bestRecord < other.getBestRecord()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+
+    public String getStrGroup() {
+        String strGroup = "Junior";
+        if (!membershipAgeGroup) {
+            strGroup = "Senior";
+        }
+        return strGroup;
     }
 
     public void setFirstName(String firstName) {
@@ -115,58 +179,65 @@ public class Member {
         this.membershipAgeGroup = membershipAgeGroup;
     }
 
+    public String strRecords() {
+        String strRecords = "";
+        for (int i = 0; i < recordList.size(); i++) {
+            strRecords += ";" + recordList.get(i).getDiscipline() + ";" + recordList.get(i).getCompetition() + ";" + recordList.get(i).getDate() + ";" + recordList.get(i).getTimeInSeconds();
+        }
+        return strRecords;
+    }
 
-    public String strDiscipline(){
+    public String strDiscipline() {
         Discipline discipline;
         String strDiscipline = "";
-        for(int i = 0; i < disciplineList.size(); i++){
-            strDiscipline += ","+ disciplineList.get(i);
+        for (int i = 0; i < disciplineList.size(); i++) {
+            strDiscipline += ";" + disciplineList.get(i);
         }
         return strDiscipline;
     }
 
-    public String printDiscipline(){
+    public String printDiscipline() {
         Discipline discipline;
         String strDiscipline = "";
-        for(int i = 0; i < disciplineList.size(); i++){
+        for (int i = 0; i < disciplineList.size(); i++) {
             strDiscipline += " " + disciplineList.get(i);
         }
         return strDiscipline;
     }
 
-    public String displayDiscipline(){
+    public String displayDiscipline() {
         Discipline discipline;
         String displayDiscipline = "";
-        for(int i = 0; i < disciplineList.size(); i++){
-            displayDiscipline += "" + (i+1) + ") " + disciplineList.get(i)+"\n";
+        for (int i = 0; i < disciplineList.size(); i++) {
+            displayDiscipline += "" + (i + 1) + ") " + disciplineList.get(i) + "\n";
         }
         return displayDiscipline;
     }
 
-    public double Subscription(){
-        if(membershipStatus = true && age < 18 && age > 0){
+    public double Subscription() {
+        if (membershipStatus = true && age < 18 && age > 0) {
             membershipAgeGroup = true;
             return 1000;
         }
-        if(membershipStatus = true && age >= 18 && age < 60){
+        if (membershipStatus = true && age >= 18 && age < 60) {
             membershipAgeGroup = false;
             return 1600;
         }
-        if(membershipStatus = false && age >= 60){
+        if (membershipStatus = false && age >= 60) {
             return 1600 * 0.75;
         }
         return 500;
     }
 
-    public String getStrGender(){
-        if(gender = true){
+    public String getStrGender() {
+        if (gender = true) {
             return "Kvinde";
         }
         return "Mand";
     }
 
-    public String getStrMembershipStatus(){
-        if(membershipStatus = true){
+    public String getStrMembershipStatus() {
+        if (membershipStatus = true) {
             return "Aktivt";
         }
         return "Passivt";
@@ -176,32 +247,69 @@ public class Member {
         return membershipType;
     }
 
-    public String getStrMembershipType(){
-        if(membershipType = true){
-            return "Konkurrencesvømmer";
+    public String getStrMembershipType() {
+        if (membershipType == true) {
+            return "Konkurrencesv?mmer";
         }
         return "Motionist";
     }
 
-    public void setHasPaid(boolean hasPaid){
-        this.hasPaid = true;
+    public void setArrear(boolean arrear) {
+        this.arrear = arrear;
     }
 
-    public void setCoach(Employee coach){
+    public void setCoach(Employee coach) {
         this.coach = coach;
     }
-    public void updateDiciplineList(Discipline discipline){
+
+    public void updateDiciplineList(Discipline discipline) {
+
         disciplineList.add(discipline);
     }
 
-    public void setMembershipType(Boolean membershipType){
+    public void updateRecordList(Record record) {
+        recordList.add(record);
+    }
+
+    public int getDisciplineAmount() {
+        int amount = 0;
+        for (Discipline discipline : disciplineList) {
+            amount++;
+        }
+        return amount;
+    }
+
+    public ArrayList<Record> getRecordList() {
+        return recordList;
+    }
+
+    public void setMembershipType(Boolean membershipType) {
         this.membershipType = membershipType;
     }
 
-    public String toString(){
+    public Discipline getDiscipline(int option) {
+        return disciplineList.get(option);
+    }
+
+    public String getStrMember() {
         String strCoach = strCoach();
         String strDiscipline = strDiscipline();
-        return String.format("%s,%s,%d,%b,%s,%s,%d,%b,%b,%s%s, %b",firstName,lastName,age,gender,address,email,phoneNumber,membershipStatus,membershipType,strCoach,strDiscipline, hasPaid);
+        String strRecords = strRecords();
+        int disciplineAmount = getDisciplineAmount();
+        if (membershipType) {
+            return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, membershipType, strCoach, arrear, disciplineAmount, strDiscipline, strRecords);
+        } else {
+            return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, membershipType, strCoach, arrear, disciplineAmount, strDiscipline, strRecords);
+        }
+
+    }
+
+    public String toString() {
+        String strCoach = strCoach();
+        String strDiscipline = strDiscipline();
+        String strRecords = strRecords();
+        int disciplineAmount = getDisciplineAmount();
+        return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, membershipType, strCoach, arrear, disciplineAmount, strDiscipline, strRecords);
     }
 }
 

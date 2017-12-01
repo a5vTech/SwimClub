@@ -1,6 +1,6 @@
 public class Discipline {
     private String discipline;
-    private String[] disciplines = {"butterfly","crawl","backstroke","breaststroke","dogpaddle"};
+    private String[] disciplines = {"butterfly","crawl","rygsvømning","brystsvømning","hundesvømnming"};
 
 
 //Constructors

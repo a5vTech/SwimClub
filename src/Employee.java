@@ -63,7 +63,8 @@ public class Employee {
         this.address = address;
     }
 
+
     public String toString() {
-        return String.format("%s,%s,%s,%s,%d", title, firstName, lastName, address, phoneNumber);
+        return String.format("%s;%s;%s;%s;%d", title, firstName, lastName, address, phoneNumber);
     }
 }

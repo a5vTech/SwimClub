@@ -22,7 +22,6 @@ public class Coach extends Employee {
         return memberlist;
     }
 
-
     //Setters                                                                         
 
     public void setMemberlist(ArrayList<Member> memberlist) {
