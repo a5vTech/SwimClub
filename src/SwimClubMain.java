@@ -5,22 +5,19 @@ public class SwimClubMain {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
     public static ArrayList<Member> memberList = new ArrayList<>();
 
-
     public static void main(String[] args) throws FileNotFoundException {
         //Import Data
-        importEmployeeData();
-        importMemberData();
-
-        //Run Program
-        mainMenu();
-
+        importEmployeeData(); //Importer ansatte
+        importMemberData(); //Importer medlemmer
+        //Start program
+        mainMenu(); //Kør hovedmenu
         //Update files
-        exportEmployeeData();
-        exportMemberData();
-
+        exportEmployeeData(); //Eksporter ansatte til fil
+        exportMemberData(); //Eksporter medlemmer til fil
     }
-
     //Methods
+
+    //MAIN MENU
 
     public static void mainMenu() throws FileNotFoundException {
         System.out.println("Velkommen til Svømmeklubben Delfinens medlemssystem");
@@ -31,7 +28,6 @@ public class SwimClubMain {
             System.out.println("\nHOVEDMENU\n1) Formand menu\n2) Kasserer menu\n3) Træner menu\n0) Afslut program");
             System.out.print("Vælg: ");
             int option = userInput.nextInt();
-
             switch (option) {
                /*
                    Case 1 = Formand menu
@@ -39,7 +35,6 @@ public class SwimClubMain {
                    Case 3 = Træner menu
                    Case 0 = Afslut program
                */
-
                 case 1:
                     //Formand
                     System.out.println("\nFORMAND\n1) Opret nyt medlem\n2) Opdater medlems oplysninger\n3) Opret ny ansat\n4) Opdater ansattes oplysninger\n0) Tilbage");
@@ -48,8 +43,13 @@ public class SwimClubMain {
                     if (option == 1) {
                         createMember(userInput);
                     } else if (option == 2) {
-                        //Opdater medlem
-                        //TODO Create update member method - updateMember();
+                        System.out.println("\nOPDATER OPLYSNINGER");
+                        for (int i = 0; i < memberList.size(); i++) {
+                            System.out.println((i + 1) + ") " + memberList.get(i).getFirstName() + " " + memberList.get(i).getLastName() + " Telefonnummer: " + memberList.get(i).getPhoneNumber());
+                        }
+                        System.out.print("Vælg: ");
+                        int memberChoice = userInput.nextInt() - 1;
+                        updateMember(userInput, memberList.get(memberChoice));
                     } else if (option == 3) {
                         System.out.println("\n1) Opret ny formand\n2) Opret ny kasserer\n3) Opret ny træner\n0) Tilbage");
                         System.out.print("Vælg: ");
@@ -91,14 +91,12 @@ public class SwimClubMain {
                             System.out.println("\nNy Træner:");
                             Employee employee = createEmployee(userInput, 3);
                             employeeList.add(employee);
-
                         } else {
                             break;
                         }
-
                     } else if (option == 4) {
                         //Opdater ansat
-                        //TODO Create update employee method - updateEmployee();
+                        //TODO Create update employee method - updateEmployee();  ------ NEEDS TO BE CREATED (02-12-2017)
 
                     } else {
                         //Gå tilbage til mainMenu
@@ -106,42 +104,52 @@ public class SwimClubMain {
                     break;
                 case 2:
                     //Kasserer
-                    System.out.println("\nKASSERER\n1) Registrer betaling\n0) Tilbage");
+                    System.out.println("\nKASSERER\n1) Registrer betaling\n2) Vis medlemskaber i restance\n0) Tilbage");
                     System.out.print("Vælg: ");
+                    boolean showArrear = false;
                     option = userInput.nextInt();
-
                     if (option == 1) {
-                        showArrearMembers(userInput);
+                        showArrearMembers(userInput, showArrear);
                         break;
-                    } else {
+                    } else if (option == 2) {
+                        showArrear = true;
+                        showArrearMembers(userInput, showArrear);
+                        break;
+                    }else {
                         //Gå tilbage til mainMenu
                         break;
                     }
-
                 case 3:
                     //Træner
                     System.out.println("\nTRÆNER\n1) Se top 5\n2) Registrer rekord\n3) Registrer stævnetid\n0) Tilbage");
                     System.out.print("Vælg: ");
                     option = userInput.nextInt();
+                    boolean competitionRecord = false;
                     if (option == 1) {
                         showTopFive(userInput);
-                    } else if (option == 2) {
-                        System.out.println("Registrer rekord");
+                    } else if (option == 2 || option == 3) {
+                        if(option == 2){
+                            System.out.println("\nREGISTRER REKORD");
+                        }else{
+                            System.out.println("\nREGISTRER STÆVNETID");
+                        }
                         for (int k = 0; k < memberList.size(); k++) {
                             if (memberList.get(k).getMembershipType()) { //Hvis medlemmet er konkurrencesvømmer
                                 System.out.println((k + 1) + ")" + memberList.get(k).getFirstName() + " " + memberList.get(k).getLastName() + " " + memberList.get(k).getPhoneNumber());
                             } else {
-                                System.out.print("NNNOOOOOOOO");
+                                System.out.print("Ingen konkurrencesvømmere tilgængelige.");
                             }
                         }
-                        System.out.println("Hvilken svømmer vil du indtaste rekord for?");
+                        System.out.print("Vælg: ");
                         int choice = userInput.nextInt() - 1;
-                        registerRecord(userInput, choice);
-                        System.out.println("ID: " + choice + " MEMBER: " + memberList.get(choice).getFirstName());
+                        if(option == 2){
+                            registerRecord(userInput, choice, competitionRecord);
+                        }else{
+                            competitionRecord = true;
+                            registerRecord(userInput, choice, competitionRecord);
+                        }
                         break;
                     } else {
-                        System.out.println("Registrer stævne");
-                        // TODO add enterCompetion(); method
                         break;
                     }
                     break;
@@ -154,58 +162,7 @@ public class SwimClubMain {
         System.out.println("Tak og farvel.");
     }
 
-    public static void registerRecord(Scanner userInput, int choice) throws FileNotFoundException {
-        System.out.print("Hvilket stævne: ");
-        userInput.nextLine();
-        String competition = userInput.next();
-        System.out.println("Dato: ");
-        String date = userInput.next();
-        System.out.println("Tid i minutter og sekunder: ");
-        System.out.print("Indtast antal minutter: ");
-        int minutes = userInput.nextInt();
-        System.out.print("Indtast antal sekunder: ");
-        int seconds = userInput.nextInt();
-        int time = (minutes * 60) + seconds;
-        for (int i = 0; i < memberList.get(choice).getDisciplineList().size(); i++) {
-            System.out.println((i + 1) + ")" + memberList.get(choice).getDiscipline(i));
-        }
-        System.out.println("");
-        System.out.print("Vælg disciplin: ");
-        int option = userInput.nextInt();
-        Record record = new Record(memberList.get(choice).getDiscipline(option - 1), competition, date, time);
-        memberList.get(choice).updateRecordList(record);
-    }
-
-    public static void showTopFive(Scanner userInput) {
-        System.out.println("\nInden for hvilken disciplin vil du se top 5?");
-        System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) Brystsvømning\n5) Hundesvømning");
-        System.out.print("Vælg: ");
-        int option = userInput.nextInt();
-        Discipline discipline = new Discipline(option);
-        Member[] topFive = new Member[5];
-        ArrayList<Member> recordMembers = new ArrayList<>();
-        for (int i = 0; i < memberList.size(); i++) { //Tjek alle medlemmer
-            if (memberList.get(i).getMembershipType()) { //Hvis medlem er konkurrencesvømmer
-                for (int k = 0; k < memberList.get(i).getRecordList().size(); k++) {
-                    if (memberList.get(i).getRecordList().get(k).getDiscipline().getDiscipline().equals(discipline.getDiscipline())) {
-                        memberList.get(i).setRecord(discipline);
-                      /*  memberList.get(i).setDogPaddleRecord();
-                        memberList.get(i).setBackstrokeRecord();
-                        memberList.get(i).setBreaststrokeRecord();
-                        memberList.get(i).setButterflyRecord(); */
-                    }
-                }
-                recordMembers.add(memberList.get(i));
-
-            }
-        }
-        Collections.sort(recordMembers);
-        for (int i = 0; i < 5; i++) {
-            System.out.println(recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " RECORD: " + recordMembers.get(i).getBestRecord());
-        }
-
-    }
-
+    //IMPORT METHODS
     public static void importEmployeeData() throws FileNotFoundException {
         Scanner employeeData = new Scanner(new File("Data/employee.txt"));
         while (employeeData.hasNextLine()) {
@@ -226,81 +183,55 @@ public class SwimClubMain {
         }
     }
 
+    public static void importMemberData() throws FileNotFoundException {
+        Scanner memberData = new Scanner(new File("Data/member.txt"));
+        while (memberData.hasNextLine()) {
+            String line = memberData.nextLine();
+            String[] arr = line.split(";");
+            Member member = new Member(arr[0], arr[1], Integer.parseInt(arr[2]), Boolean.parseBoolean(arr[3]), arr[4], arr[5], Integer.parseInt(arr[6]), Boolean.parseBoolean(arr[7]), Boolean.parseBoolean(arr[8]));
+            if (arr.length > 11) {//Hvis medlemmet er konkurrencesvømmer
+                member.setMembershipType(true);
+                for (int i = 0; i < employeeList.size(); i++) {
+                    if (employeeList.get(i).getPhoneNumber() == Integer.parseInt(arr[13])) {
+                        member.setCoach(employeeList.get(i));
+                    }
+                }
+                //ADD DISCIPLINES
+                for (int i = 0; i < Integer.parseInt(arr[15]); i++) {
+                    Discipline discipline = new Discipline(arr[i + 16]);
+                    member.updateDiciplineList(discipline);
+                }
+                //ADD Records
+                for (int i = 15 + Integer.parseInt(arr[15]) + 1; i < arr.length; i += 4) {
+                    Discipline discipline = new Discipline(0);
+                    for (int k = 0; k < member.getDisciplineList().size(); k++) {
+                        if (arr[i].equalsIgnoreCase(member.getDisciplineList().get(k).getDiscipline())) {
+                            discipline = member.getDisciplineList().get(k);
+                        }
+                    }
+                    Record record = new Record(discipline, arr[i + 1], arr[i + 2], Integer.parseInt(arr[i + 3]));
+                    member.updateRecordList(record);
+                }
+            }
+            memberList.add(member);
+        }
+    }
+
+    //EXPORT METHODS
+    public static void exportMemberData() throws FileNotFoundException {
+        PrintStream memberData = new PrintStream(new File("Data/member.txt"));
+        for (int i = 0; i < memberList.size(); i++) {
+            memberData.print(memberList.get(i) + "\n");
+        }
+    }
+
     public static void exportEmployeeData() throws FileNotFoundException {
         PrintStream employeeData = new PrintStream(new File("Data/employee.txt"));
         for (int i = 0; i < employeeList.size(); i++) {
             employeeData.print(employeeList.get(i) + "\n");
         }
     }
-    //dummy comment
-
-    public static void createMember(Scanner userInput) {
-        System.out.println("\nNYT MEDLEM");
-        System.out.println("1) Konkurrencesvømmer\n2) Motionist");
-        System.out.print("Vælg: ");
-        int choice = userInput.nextInt();
-        boolean membershipType = false; //True = Konkurrencesvømmer, False = Motionist
-        if (choice == 1) {
-            membershipType = true;
-        } else {
-            membershipType = false;
-        }
-        userInput.nextLine();
-        System.out.print("\nIndtast fornavn(e): ");
-        String firstName = userInput.nextLine();
-        System.out.print("Indtast efternavn: ");
-        String lastName = userInput.next();
-        System.out.print("Indtast alder: ");
-        int age = userInput.nextInt();
-        System.out.print("Indtast køn - Mand/Kvinde (M/K): "); //True = Kvinde, False = Mand
-        String genderChoice = userInput.next();
-        Boolean gender = false;
-        if (genderChoice.equalsIgnoreCase("K")) {
-            gender = true;
-        }
-        System.out.print("Indtast adresse: ");
-        userInput.nextLine(); //Empty read line to finish reading current line
-        String address = userInput.nextLine();
-        System.out.print("Indtast email: ");
-        String email = userInput.nextLine();
-        System.out.print("Indtast telefonnummber: ");
-        int phoneNumber = userInput.nextInt();
-        Boolean membershipStatus = true; //True, da medlemskab er aktivt ved oprettelse
-        Member member = new Member(firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, false);
-        if (membershipType) {
-            createCompetitor(userInput, member);
-        }
-        member.setMembershipType(membershipType);
-
-        confirmDetails(userInput, member);
-
-        System.out.println("Medlem oprettet.");
-        memberList.add(member);
-    }
-
-    public static void confirmDetails(Scanner userInput, Member member) {
-        System.out.println("\nINDTASTEDE OPLYSNINGER\n----------------------");
-        System.out.println("Fornavn: " + member.getFirstName());
-        System.out.println("Efternavn: " + member.getLastName());
-        System.out.println("Alder: " + member.getAge());
-        System.out.println("Køn: " + member.getStrGender());
-        System.out.println("Adresse: " + member.getAddress());
-        System.out.println("E-mail: " + member.getEmail());
-        System.out.println("Telefon Nummer: " + member.getPhoneNumber());
-        System.out.println("Medlemsstatus: " + member.getStrMembershipStatus());
-        System.out.println("Medlemstype: " + member.getStrMembershipType());
-        if (member.getMembershipType() == true) {
-            System.out.println("Tilknyttet træner: " + member.strCoach());
-            System.out.println("Disciplin(er):" + member.printDiscipline());
-        }
-        System.out.println("\nEr oplysningerne korrekte?\n1) Ja\n2) Nej");
-        System.out.print("Vælg: ");
-        int option = userInput.nextInt();
-        if (option == 2) {
-            updateMember(userInput, member);
-        }
-    }
-
+    //UPDATE METHODS
 
     public static void updateMember(Scanner userInput, Member member) {
         if (!member.getMembershipType()) {
@@ -394,6 +325,45 @@ public class SwimClubMain {
 
     }
 
+    //SHOW LIST METHODS
+    public static void showTopFive(Scanner userInput) {
+        System.out.println("\nInden for hvilken disciplin vil du se top 5?");
+        System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) Brystsvømning\n5) Hundesvømning");
+        System.out.print("Vælg: ");
+        int option = userInput.nextInt();
+        Discipline discipline = new Discipline(option);
+        Member[] topFive = new Member[5];
+        ArrayList<Member> recordMembers = new ArrayList<>();
+        for (int i = 0; i < memberList.size(); i++) { //Tjek alle medlemmer
+            if (memberList.get(i).getMembershipType()) { //Hvis medlem er konkurrencesvømmer
+                for (int k = 0; k < memberList.get(i).getRecordList().size(); k++) {
+                    if (memberList.get(i).getRecordList().get(k).getDiscipline().getDiscipline().equals(discipline.getDiscipline())) {
+                        memberList.get(i).setRecord(discipline);
+                    }
+                }
+                recordMembers.add(memberList.get(i));
+
+            }
+        }
+        Collections.sort(recordMembers);
+        System.out.println("\nTOP FEM");
+        for (int i = 0; i < 5; i++) {
+            if(recordMembers.get(i).getBestRecord() > 60){
+                double doubleMinutes = Math.floor(recordMembers.get(i).getBestRecord()/60);
+                double doubleSeconds = recordMembers.get(i).getBestRecord()-(doubleMinutes*60);
+                int minutes = (int) doubleMinutes;
+                int seconds = (int) doubleSeconds;
+                System.out.println((i+1) + ") " + recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " Tid: " + minutes + " min " + seconds + " sek");
+            }else{
+            System.out.println((i+1) + ") " + recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " Tid: " + recordMembers.get(i).getBestRecord() + " sek");
+            }
+       }
+        System.out.println("0) Tilbage");
+        System.out.print("Vælg: ");
+        option = userInput.nextInt();
+
+    }
+
     public static void showCoaches() {
         for (int i = 0; i < employeeList.size(); i++) {
             if (employeeList.get(i) instanceof Coach) {
@@ -402,8 +372,12 @@ public class SwimClubMain {
         }
     }
 
-    public static void showArrearMembers(Scanner userInput) {
-        System.out.println("\nMEDLEMSKABER I RESTANCE");
+    public static void showArrearMembers(Scanner userInput, boolean showArrear) {
+        if(showArrear){
+            System.out.println("\nMEDLEMSKABER I RESTANCE");
+        }else{
+            System.out.println("\nREGISTRER BETALING"); 
+        }
         for (int i = 0; i < memberList.size(); i++) {
             if (memberList.get(i).getArrear()) {
                 System.out.println((i + 1) + ") " + memberList.get(i).getFirstName() + " " + memberList.get(i).getLastName() + " " + memberList.get(i).getPhoneNumber());
@@ -412,7 +386,7 @@ public class SwimClubMain {
         System.out.println("0) Tilbage");
         System.out.print("Vælg: ");
         int option = userInput.nextInt();
-        if (option != 0) {
+        if (option != 0 && !showArrear) {
             System.out.println("\n" + memberList.get(option - 1).getFirstName() + "\n" + memberList.get(option - 1).getLastName() + "\n" + memberList.get(option - 1).getPhoneNumber() + "\nBeløb i restance: " + memberList.get(option - 1).getSubscription() + ",-");
             System.out.println("\nRegistrer betaling?\n1) Ja\n2) Nej");
             System.out.print("Vælg: ");
@@ -422,6 +396,52 @@ public class SwimClubMain {
                 System.out.println("Betaling registreret.");
             }
         }
+    }
+
+    //MEMBER AND EMPLOYEE METHODS
+    public static void createMember(Scanner userInput) {
+        System.out.println("\nNYT MEDLEM");
+        System.out.println("1) Konkurrencesvømmer\n2) Motionist");
+        System.out.print("Vælg: ");
+        int choice = userInput.nextInt();
+        boolean membershipType = false; //True = Konkurrencesvømmer, False = Motionist
+        if (choice == 1) {
+            membershipType = true;
+        } else {
+            membershipType = false;
+        }
+        userInput.nextLine();
+        System.out.print("\nIndtast fornavn(e): ");
+        String firstName = userInput.nextLine();
+        System.out.print("Indtast efternavn: ");
+        String lastName = userInput.next();
+        System.out.print("Indtast alder: ");
+        int age = userInput.nextInt();
+        System.out.print("Indtast køn - Mand/Kvinde (M/K): "); //True = Kvinde, False = Mand
+        String genderChoice = userInput.next();
+        Boolean gender = false;
+        if (genderChoice.equalsIgnoreCase("K")) {
+            gender = true;
+        }
+        System.out.print("Indtast adresse: ");
+        userInput.nextLine(); //Empty read line to finish reading current line
+        String address = userInput.nextLine();
+        System.out.print("Indtast email: ");
+        String email = userInput.nextLine();
+        System.out.print("Indtast telefonnummber: ");
+        int phoneNumber = userInput.nextInt();
+        Boolean membershipStatus = true; //True, da medlemskab er aktivt ved oprettelse
+        Boolean arrear = true; //True, da medlemskab ikke er betalt
+        Member member = new Member(firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, arrear);
+        if (membershipType) {
+            createCompetitor(userInput, member);
+        }
+        member.setMembershipType(membershipType);
+
+        confirmDetails(userInput, member);
+
+        System.out.println("Medlem oprettet.");
+        memberList.add(member);
     }
 
     public static void createCompetitor(Scanner userInput, Member member) {
@@ -441,6 +461,60 @@ public class SwimClubMain {
 
     }
 
+    public static void confirmDetails(Scanner userInput, Member member) {
+        System.out.println("\nINDTASTEDE OPLYSNINGER\n----------------------");
+        System.out.println("Fornavn: " + member.getFirstName());
+        System.out.println("Efternavn: " + member.getLastName());
+        System.out.println("Alder: " + member.getAge());
+        System.out.println("Køn: " + member.getStrGender());
+        System.out.println("Adresse: " + member.getAddress());
+        System.out.println("E-mail: " + member.getEmail());
+        System.out.println("Telefonnummer: " + member.getPhoneNumber());
+        System.out.println("Medlemsstatus: " + member.getStrMembershipStatus());
+        System.out.println("Medlemstype: " + member.getStrMembershipType());
+        if (member.getMembershipType() == true) {
+            System.out.println("Tilknyttet træner: " + member.strCoach());
+            System.out.println("Disciplin(er):" + member.printDiscipline());
+        }
+        System.out.println("\nEr oplysningerne korrekte?\n1) Ja\n2) Nej");
+        System.out.print("Vælg: ");
+        int option = userInput.nextInt();
+        if (option == 2) {
+            updateMember(userInput, member);
+        }
+        System.out.println("Oplysninger opdateret.");
+    }
+
+    public static void registerRecord(Scanner userInput, int choice, boolean competitionTime) throws FileNotFoundException {
+        String competition = "lokal";
+        System.out.println("");
+        if(competitionTime){
+            System.out.print("Indtast stævne: ");
+            userInput.nextLine();
+            competition = userInput.next();
+        }
+        System.out.print("Indtast dato (DD/MM/ÅÅ): ");
+        String date = userInput.next();
+        System.out.println("\nTid i minutter og sekunder: ");
+        System.out.print("Indtast antal hele minutter: ");
+        int minutes = userInput.nextInt();
+        System.out.print("Indtast antal hele sekunder: ");
+        int seconds = userInput.nextInt();
+        int time = (minutes * 60) + seconds;
+        for (int i = 0; i < memberList.get(choice).getDisciplineList().size(); i++) {
+            System.out.println((i + 1) + ")" + memberList.get(choice).getDiscipline(i));
+        }
+        System.out.println("");
+        System.out.print("Vælg disciplin: ");
+        int option = userInput.nextInt();
+        Record record = new Record(memberList.get(choice).getDiscipline(option - 1), competition, date, time);
+        memberList.get(choice).updateRecordList(record);
+        if(competitionTime){
+            System.out.print("Stævnetid registreret.");
+        }else{
+            System.out.print("Rekord registreret.");
+        }
+    }
 
     public static Employee createEmployee(Scanner userInput, int option) {
         System.out.print("Fornavn(e): ");
@@ -467,66 +541,4 @@ public class SwimClubMain {
             return coach;
         }
     }
-
-    public static void importMemberData() throws FileNotFoundException {
-        Scanner memberData = new Scanner(new File("Data/member.txt"));
-        while (memberData.hasNextLine()) {
-            // if (memberData.nextLine() != null) {
-            String line = memberData.nextLine();
-            String[] arr = line.split(";");
-            //System.out.print(Arrays.toString(arr));
-//            System.out.println("DEBUGMEDCAPS " + arr.length + " " + Arrays.toString(arr));
-            //System.out.println(arr2[4]);
-            int x = arr.length;
-            // System.out.println("DEBUGMEDEKSTRACAPS " + (x - 15));
-            Member member = new Member(arr[0], arr[1], Integer.parseInt(arr[2]), Boolean.parseBoolean(arr[3]), arr[4], arr[5], Integer.parseInt(arr[6]), Boolean.parseBoolean(arr[7]), Boolean.parseBoolean(arr[8]));
-            if (arr.length > 11) {//Hvis medlemmet er konkurrencesvømmer
-                member.setMembershipType(true);
-                for (int i = 0; i < employeeList.size(); i++) {
-                    if (employeeList.get(i).getPhoneNumber() == Integer.parseInt(arr[13])) {
-                        member.setCoach(employeeList.get(i));
-                    }
-                }
-                //ADD DISCIPLINES
-                for (int i = 0; i < Integer.parseInt(arr[15]); i++) {
-//                    System.out.print("\n\nDEBUGGGGGG: " + arr[i + 16] + "\n\n");
-                    Discipline discipline = new Discipline(arr[i + 16]);
-                    member.updateDiciplineList(discipline);
-                }
-                //ADD Records
-                for (int i = 15 + Integer.parseInt(arr[15]) + 1; i < arr.length; i += 4) {
-                    Discipline discipline = new Discipline(0);
-                    for (int k = 0; k < member.getDisciplineList().size(); k++) {
-                        if (arr[i].equalsIgnoreCase(member.getDisciplineList().get(k).getDiscipline())) {
-                            discipline = member.getDisciplineList().get(k);
-                        }
-                    }
-                    Record record = new Record(discipline, arr[i + 1], arr[i + 2], Integer.parseInt(arr[i + 3]));
-                    member.updateRecordList(record);
-                }
-
-
-            }
-
-            memberList.add(member);
-            //  }
-        }
-    }
-
-    public static void exportMemberData() throws FileNotFoundException {
-        PrintStream memberData = new PrintStream(new File("Data/member.txt"));
-        for (int i = 0; i < memberList.size(); i++) {
-            memberData.print(memberList.get(i) + "\n");
-        }
-    }
-
-    /*  METHODS
-    *   updateMember();
-    *   loadMemberData();
-    *
-    *   showMembers();
-    *   registerPayments();
-    *   registerRecords();
-    */
-
 }

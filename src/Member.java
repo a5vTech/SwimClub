@@ -101,15 +101,13 @@ public class Member implements Comparable<Member> {
     }
 
 
-
-
     public void setRecord(Discipline discipline) {
         String strDiscipline = discipline.getDiscipline();
 
         int[] disciplineRecords = new int[recordList.size()];
-        for(int i = 0; i < recordList.size(); i++){
-            for(int k = 0; k < recordList.size(); k++){
-                if(recordList.get(k).getDiscipline().getDiscipline().equalsIgnoreCase(strDiscipline)){
+        for (int i = 0; i < recordList.size(); i++) {
+            for (int k = 0; k < recordList.size(); k++) {
+                if (recordList.get(k).getDiscipline().getDiscipline().equalsIgnoreCase(strDiscipline)) {
                     disciplineRecords[i] = recordList.get(k).getTimeInSeconds();
                 }
             }
@@ -117,7 +115,6 @@ public class Member implements Comparable<Member> {
         Arrays.sort(disciplineRecords);
         bestRecord = disciplineRecords[0];
     }
-
 
 
     public int getBestRecord() {
@@ -206,7 +203,6 @@ public class Member implements Comparable<Member> {
     }
 
     public String displayDiscipline() {
-        Discipline discipline;
         String displayDiscipline = "";
         for (int i = 0; i < disciplineList.size(); i++) {
             displayDiscipline += "" + (i + 1) + ") " + disciplineList.get(i) + "\n";
@@ -297,9 +293,9 @@ public class Member implements Comparable<Member> {
         String strRecords = strRecords();
         int disciplineAmount = getDisciplineAmount();
         if (membershipType) {
-            return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, membershipType, strCoach, arrear, disciplineAmount, strDiscipline, strRecords);
+            return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, arrear, strCoach, membershipType, disciplineAmount, strDiscipline, strRecords);
         } else {
-            return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, membershipType, strCoach, arrear, disciplineAmount, strDiscipline, strRecords);
+            return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, arrear, strCoach, membershipType, disciplineAmount, strDiscipline, strRecords);
         }
 
     }
@@ -309,7 +305,7 @@ public class Member implements Comparable<Member> {
         String strDiscipline = strDiscipline();
         String strRecords = strRecords();
         int disciplineAmount = getDisciplineAmount();
-        return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, membershipType, strCoach, arrear, disciplineAmount, strDiscipline, strRecords);
+        return String.format("%s;%s;%d;%b;%s;%s;%d;%b;%b;%s;%b;%d%s%s", firstName, lastName, age, gender, address, email, phoneNumber, membershipStatus, arrear, strCoach, membershipType, disciplineAmount, strDiscipline, strRecords);
     }
 }
 
