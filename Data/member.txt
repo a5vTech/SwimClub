@@ -1,10 +1,11 @@
-Jesper;Jesper;25;true;add;mail;2990390;true;false;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99999;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;150;butterfly;LOKAL;DATO;99995
-Peter;Jesper;25;true;add;mail;2990390;true;false;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99991;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;10;butterfly;LOKAL;DATO;99395
+Jesper;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99999;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;150;butterfly;LOKAL;DATO;99995
+Peter;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99991;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;10;butterfly;LOKAL;DATO;99395
 Christian;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99998;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;140;butterfly;LOKAL;DATO;99595
 Karsten;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99992;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;120;butterfly;LOKAL;DATO;99795
 Danny;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99997;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;30;butterfly;LOKAL;DATO;99495
 Morten;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99993;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;125;butterfly;LOKAL;DATO;99895
 Jeppe;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99996;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;113;butterfly;LOKAL;DATO;99395
 Torben;Jesper;25;true;add;mail;2990390;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99994;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;116;butterfly;LOKAL;DATO;99295
-Kasper;Svendsen;19;true;Vennevej 30 2400 Amager;KSvendsen@email.dk;52773154;true;false;Coach;Træner1;Træner1;Trænervej;4545;true;1;brystsv�mning;brystsv�mning;LOKAL;DATO;99999
-Katrine;Jessen;23;true;Magnolievej 102 2000 Frederiksberg;KJessen@email.dk;28744237;true;false;Coach;Træner1;Træner1;Trænervej;4545;true;1;rygsv�mning;rygsv�mning;LOKAL;DATO;99999
+Kasper;Svendsen;19;true;Vennevej 30 2400 Amager;KSvendsen@email.dk;52773154;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;1;brystsvømning;brystsvømning;LOKAL;DATO;99999
+Katrine;Jessen;23;true;Magnolievej 102 2000 Frederiksberg;KJessen@email.dk;28744237;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;1;rygsvømning;rygsvømning;LOKAL;DATO;99999
+1;1;1;false;1;1;1;true;true;Coach;Træner1;Træner1;Trænervej;4545;true;1;butterfly

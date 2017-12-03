@@ -5,6 +5,7 @@ public class SwimClubMain {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
     public static ArrayList<Member> memberList = new ArrayList<>();
 
+
     public static void main(String[] args) throws FileNotFoundException {
         //Import Data
         importEmployeeData(); //Importer ansatte
@@ -115,7 +116,7 @@ public class SwimClubMain {
                         showArrear = true;
                         showArrearMembers(userInput, showArrear);
                         break;
-                    }else {
+                    } else {
                         //Gå tilbage til mainMenu
                         break;
                     }
@@ -128,9 +129,9 @@ public class SwimClubMain {
                     if (option == 1) {
                         showTopFive(userInput);
                     } else if (option == 2 || option == 3) {
-                        if(option == 2){
+                        if (option == 2) {
                             System.out.println("\nREGISTRER REKORD");
-                        }else{
+                        } else {
                             System.out.println("\nREGISTRER STÆVNETID");
                         }
                         for (int k = 0; k < memberList.size(); k++) {
@@ -142,9 +143,9 @@ public class SwimClubMain {
                         }
                         System.out.print("Vælg: ");
                         int choice = userInput.nextInt() - 1;
-                        if(option == 2){
+                        if (option == 2) {
                             registerRecord(userInput, choice, competitionRecord);
-                        }else{
+                        } else {
                             competitionRecord = true;
                             registerRecord(userInput, choice, competitionRecord);
                         }
@@ -188,16 +189,24 @@ public class SwimClubMain {
         while (memberData.hasNextLine()) {
             String line = memberData.nextLine();
             String[] arr = line.split(";");
+            //System.out.print(Arrays.toString(arr));
+            //System.out.println("DEBUGMEDCAPS " + arr.length + " " + Arrays.toString(arr));
+            //System.out.println(arr2[4]);
+            //  int x = arr.length;
+            // System.out.println("DEBUGMEDEKSTRACAPS " + (x));
             Member member = new Member(arr[0], arr[1], Integer.parseInt(arr[2]), Boolean.parseBoolean(arr[3]), arr[4], arr[5], Integer.parseInt(arr[6]), Boolean.parseBoolean(arr[7]), Boolean.parseBoolean(arr[8]));
-            if (arr.length > 11) {//Hvis medlemmet er konkurrencesvømmer
+            if (arr.length > 12) {//Hvis medlemmet er konkurrencesvømmer
                 member.setMembershipType(true);
+
                 for (int i = 0; i < employeeList.size(); i++) {
                     if (employeeList.get(i).getPhoneNumber() == Integer.parseInt(arr[13])) {
                         member.setCoach(employeeList.get(i));
                     }
                 }
+                // member.setArrear(Boolean.parseBoolean(arr[14]));
                 //ADD DISCIPLINES
                 for (int i = 0; i < Integer.parseInt(arr[15]); i++) {
+                    //  System.out.print("\n\nDEBUGGGGGG: " + arr[i + 16] + "\n\n");
                     Discipline discipline = new Discipline(arr[i + 16]);
                     member.updateDiciplineList(discipline);
                 }
@@ -212,6 +221,10 @@ public class SwimClubMain {
                     Record record = new Record(discipline, arr[i + 1], arr[i + 2], Integer.parseInt(arr[i + 3]));
                     member.updateRecordList(record);
                 }
+            }
+            if (!member.getMembershipType()) {
+                System.out.println(arr[9]);
+                member.setArrear(Boolean.parseBoolean(arr[9]));
             }
             memberList.add(member);
         }
@@ -348,16 +361,16 @@ public class SwimClubMain {
         Collections.sort(recordMembers);
         System.out.println("\nTOP FEM");
         for (int i = 0; i < 5; i++) {
-            if(recordMembers.get(i).getBestRecord() > 60){
-                double doubleMinutes = Math.floor(recordMembers.get(i).getBestRecord()/60);
-                double doubleSeconds = recordMembers.get(i).getBestRecord()-(doubleMinutes*60);
+            if (recordMembers.get(i).getBestRecord() > 60) {
+                double doubleMinutes = Math.floor(recordMembers.get(i).getBestRecord() / 60);
+                double doubleSeconds = recordMembers.get(i).getBestRecord() - (doubleMinutes * 60);
                 int minutes = (int) doubleMinutes;
                 int seconds = (int) doubleSeconds;
-                System.out.println((i+1) + ") " + recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " Tid: " + minutes + " min " + seconds + " sek");
-            }else{
-            System.out.println((i+1) + ") " + recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " Tid: " + recordMembers.get(i).getBestRecord() + " sek");
+                System.out.println((i + 1) + ") " + recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " Tid: " + minutes + " min " + seconds + " sek");
+            } else {
+                System.out.println((i + 1) + ") " + recordMembers.get(i).getFirstName() + " " + recordMembers.get(i).getLastName() + " " + recordMembers.get(i).getPhoneNumber() + " Tid: " + recordMembers.get(i).getBestRecord() + " sek");
             }
-       }
+        }
         System.out.println("0) Tilbage");
         System.out.print("Vælg: ");
         option = userInput.nextInt();
@@ -373,10 +386,10 @@ public class SwimClubMain {
     }
 
     public static void showArrearMembers(Scanner userInput, boolean showArrear) {
-        if(showArrear){
+        if (showArrear) {
             System.out.println("\nMEDLEMSKABER I RESTANCE");
-        }else{
-            System.out.println("\nREGISTRER BETALING"); 
+        } else {
+            System.out.println("\nREGISTRER BETALING");
         }
         for (int i = 0; i < memberList.size(); i++) {
             if (memberList.get(i).getArrear()) {
@@ -419,9 +432,12 @@ public class SwimClubMain {
         int age = userInput.nextInt();
         System.out.print("Indtast køn - Mand/Kvinde (M/K): "); //True = Kvinde, False = Mand
         String genderChoice = userInput.next();
-        Boolean gender = false;
+        Boolean gender;
         if (genderChoice.equalsIgnoreCase("K")) {
             gender = true;
+        } else {
+            gender = false;
+
         }
         System.out.print("Indtast adresse: ");
         userInput.nextLine(); //Empty read line to finish reading current line
@@ -451,28 +467,50 @@ public class SwimClubMain {
         int option = userInput.nextInt();
         member.setCoach(employeeList.get(option - 1));
         System.out.println("\nVælg disciplin");
+        newDiscipline(userInput,member);
+
+
+
+
+        //Record record = new Record(discipline, "LOKAL", "DATO", 99999);
+        //member.updateRecordList(record);
+    }
+
+    public static void newDiscipline(Scanner userInput,Member member){
         System.out.println("1) Butterfly\n2) Crawl\n3) Rygcrawl\n4) Brystsvømning\n5) Hundesvømning");
         System.out.print("Vælg: ");
-        option = userInput.nextInt();
+        int option = userInput.nextInt();
         Discipline discipline = new Discipline(option);
-        member.updateDiciplineList(discipline);
-        Record record = new Record(discipline, "LOKAL", "DATO", 99999);
-        member.updateRecordList(record);
+        boolean alreadyIn = false;
+        for(int i = 0; i < member.getDisciplineList().size(); i++){
+            if(discipline.getDiscipline().equalsIgnoreCase(member.getDisciplineList().get(i).getDiscipline())){
+                alreadyIn = true;
+                System.out.println("\nMedlemmet er allerede tilknyttet denne disciplin, vælg venligst en anden disciplin");
+                newDiscipline(userInput,member);
+            }
+        }
+
+        if(!alreadyIn){
+            member.updateDiciplineList(discipline);
+            System.out.println("\nSkal medlemmet tilknyttes flere discipliner?\n1) Ja\n2) Nej");
+            option = userInput.nextInt();
+            if(option == 1){
+                System.out.println("Vælg næste disciplin: ");
+                newDiscipline(userInput, member);
+            }
+
+        }
+
+
 
     }
 
     public static void confirmDetails(Scanner userInput, Member member) {
         System.out.println("\nINDTASTEDE OPLYSNINGER\n----------------------");
-        System.out.println("Fornavn: " + member.getFirstName());
-        System.out.println("Efternavn: " + member.getLastName());
-        System.out.println("Alder: " + member.getAge());
-        System.out.println("Køn: " + member.getStrGender());
-        System.out.println("Adresse: " + member.getAddress());
-        System.out.println("E-mail: " + member.getEmail());
-        System.out.println("Telefonnummer: " + member.getPhoneNumber());
-        System.out.println("Medlemsstatus: " + member.getStrMembershipStatus());
-        System.out.println("Medlemstype: " + member.getStrMembershipType());
-        if (member.getMembershipType() == true) {
+        System.out.printf("Fornavn: %s\nEfternavn: %s\nAlder: %d\nKøn: %s\nAdresse: %s\nE-mail: %s\nTelefonnummer: %d\nMedlemsstatus: %s\nMedlemstype: %s\n", member.getFirstName(), member.getLastName(), member.getAge(), member.getStrGender(), member.getAddress(), member.getEmail(), member.getPhoneNumber(), member.getStrMembershipStatus(), member.getStrMembershipType());
+
+
+        if (member.getMembershipType()) {
             System.out.println("Tilknyttet træner: " + member.strCoach());
             System.out.println("Disciplin(er):" + member.printDiscipline());
         }
@@ -488,7 +526,7 @@ public class SwimClubMain {
     public static void registerRecord(Scanner userInput, int choice, boolean competitionTime) throws FileNotFoundException {
         String competition = "lokal";
         System.out.println("");
-        if(competitionTime){
+        if (competitionTime) {
             System.out.print("Indtast stævne: ");
             userInput.nextLine();
             competition = userInput.next();
@@ -509,9 +547,9 @@ public class SwimClubMain {
         int option = userInput.nextInt();
         Record record = new Record(memberList.get(choice).getDiscipline(option - 1), competition, date, time);
         memberList.get(choice).updateRecordList(record);
-        if(competitionTime){
+        if (competitionTime) {
             System.out.print("Stævnetid registreret.");
-        }else{
+        } else {
             System.out.print("Rekord registreret.");
         }
     }
