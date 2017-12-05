@@ -1,1 +1,5 @@
-Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545
+Manager;Danny;Thomsen;Vennemindevej 15, 2200 København Ø;28712439
+Cashier;Tove;Hansen;Vennemindevej 15, 2200 København Ø;28942834
+Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349
+Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822
+Coach;Kirsten;Mortensen;Sejlegade 88, 2300 København S;44287319

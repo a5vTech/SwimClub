@@ -1,10 +1,36 @@
-Jesper;Jesper;25;true;add;mail;2990390;true;false;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99999;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;150;butterfly;LOKAL;DATO;99995
-Peter;Jesper;25;true;add;mail;2990390;true;false;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99991;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;10;butterfly;LOKAL;DATO;99395
-Christian;Jesper;25;true;add;mail;2990390;true;true;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99998;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;140;butterfly;LOKAL;DATO;99595
-Karsten;Jesper;25;true;add;mail;2990390;true;true;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99992;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;120;butterfly;LOKAL;DATO;99795
-Danny;Jesper;25;true;add;mail;2990390;true;true;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99997;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;30;butterfly;LOKAL;DATO;99495
-Morten;Jesper;25;true;add;mail;2990390;true;true;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99993;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;125;butterfly;LOKAL;DATO;99895
-Jeppe;Jesper;25;true;add;mail;2990390;true;true;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99996;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;113;butterfly;LOKAL;DATO;99395
-Torben;Jesper;25;true;add;mail;2990390;true;true;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;3;butterfly;crawl;crawl;butterfly;LOKAL;DATO;99994;crawl;dd;dd;4;crawl;Lokal;da;455;crawl;dd;dd;116;butterfly;LOKAL;DATO;99295
-Kasper;Svendsen;19;true;Vennevej 30 2400 Amager;KSvendsen@email.dk;52773154;true;false;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;1;brystsvømning;brystsvømning;LOKAL;DATO;99999
-Katrine;Jessen;23;true;Magnolievej 102 2000 Frederiksberg;KJessen@email.dk;28744237;true;false;Coach;TrÃ¦ner1;TrÃ¦ner1;TrÃ¦nervej;4545;true;1;rygsvømning;rygsvømning;LOKAL;DATO;99999
+Karen;Larsen;19;true;Magnolievej 1, 2200 København NV;KarenLarsen@gmail.com;27349182;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;butterfly;butterfly;lokal;05/12/2017;68
+Mikael;Mortensen;15;false;Magnolievej 2, 2200 København NV;MikaelMortensen@gmail.com;28137248;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;butterfly;butterfly;lokal;05/12/2017;58
+Kasper;Petersen;17;false;Magnolievej 3, 2200 København NV;KasperPetersen@gmail.com;26193824;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;butterfly;butterfly;lokal;05/12/2017;65
+Trine;Pedersen;22;true;Magnolievej 4, 2200 København NV;TrinePedersen@gmail.com;25948237;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;butterfly;butterfly;lokal;05/12/2017;70
+Peter;Christensen;24;false;Magnolievej 5, 2200 København NV;PeterChristensen@gmail.com;24913824;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;butterfly;butterfly;lokal;05/12/2017;57
+Mads;Christiansen;29;false;Magnolievej 6, 2200 København NV;MadsChristiansen@gmail.com;23947182;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;butterfly;butterfly;lokal;05/12/2017;63
+Connie;Hansen;89;true;Blomsterstien 23, 2400 København;ConnieHansen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;crawl;crawl;lokal;05/12/2017;85
+Preben;Hansen;87;false;Blomsterstien 23, 2400 København;PrebenHansen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;crawl;crawl;lokal;05/12/2017;83
+Dennis;Dinesen;65;false;Revstien 27, 6000 Kolding;DennisDinesen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;crawl;crawl;lokal;05/12/2017;80
+Denise;Dinesen;68;true;Revstien 27, 6000 Kolding;DeniseDinesen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;crawl;crawl;lokal;05/12/2017;86
+Johnny;Enevoldsen;74;false;Hajvej 130, 2150 København;JohnnyEnevoldsen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;crawl;crawl;lokal;05/12/2017;91
+Patricia;Enevoldsen;70;true;Hajvej 130, 2150 København;PatriciaEnevoldsen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;crawl;crawl;lokal;05/12/2017;79
+Tom;Larsen;19;true;Magnolievej 1, 2200 København NV;TomLarsen@gmail.com;27349182;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;rygcrawl;rygcrawl;lokal;05/12/2017;95
+Tommy;Mortensen;15;false;Magnolievej 2, 2200 København NV;TommyMortensen@gmail.com;28137248;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;rygcrawl;rygcrawl;lokal;05/12/2017;97
+Tomas;Petersen;17;false;Magnolievej 3, 2200 København NV;TomasPetersen@gmail.com;26193824;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;rygcrawl;rygcrawl;lokal;05/12/2017;102
+Kristine;Pedersen;22;true;Magnolievej 4, 2200 København NV;KristinePedersen@gmail.com;25948237;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;rygcrawl;rygcrawl;lokal;05/12/2017;85
+Kristina;Christensen;24;true;Magnolievej 5, 2200 København NV;KristinaChristensen@gmail.com;24913824;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;rygcrawl;rygcrawl;lokal;05/12/2017;88
+Tobias;Christiansen;29;false;Magnolievej 6, 2200 København NV;TobiasChristiansen@gmail.com;23947182;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;rygcrawl;rygcrawl;lokal;05/12/2017;84
+Marianne;Hansen;89;true;Blomsterstien 23, 2400 København;MarianneHansen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;brystsvømning;brystsvømning;lokal;05/12/2017;102
+Sofie;Hansen;87;true;Blomsterstien 23, 2400 København;SofieHansen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;brystsvømning;brystsvømning;lokal;05/12/2017;105
+Sofia;Dinesen;65;true;Revstien 27, 6000 Kolding;SofiaDinesen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;brystsvømning;brystsvømning;lokal;05/12/2017;99
+Tine;Dinesen;68;true;Revstien 27, 6000 Kolding;TineDinesen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;brystsvømning;brystsvømning;lokal;05/12/2017;110
+Tina;Enevoldsen;74;true;Hajvej 130, 2150 København;TinaEnevoldsen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;brystsvømning;brystsvømning;lokal;05/12/2017;108
+Mads;Enevoldsen;70;false;Hajvej 130, 2150 København;MadsEnevoldsen@gmail.com;22193842;false;true;Coach;Karsten;Mathiesen;Karatevej 104, 2100 København;24291822;true;1;brystsvømning;brystsvømning;lokal;05/12/2017;105
+Tonni;Larsen;19;false;Magnolievej 1, 2200 København NV;TonniLarsen@gmail.com;27349182;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;hundesvømning;hundesvømning;lokal;05/12/2017;130
+Pede;Mortensen;15;false;Magnolievej 2, 2200 København NV;PedeMortensen@gmail.com;28137248;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;hundesvømning;hundesvømning;lokal;05/12/2017;129
+Iben;Petersen;17;true;Magnolievej 3, 2200 København NV;IbenPetersen@gmail.com;26193824;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;hundesvømning;hundesvømning;lokal;05/12/2017;135
+Krista;Pedersen;22;true;Magnolievej 4, 2200 København NV;KristaPedersen@gmail.com;25948237;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;hundesvømning;hundesvømning;lokal;05/12/2017;150
+Casper;Christensen;24;false;Magnolievej 5, 2200 København NV;CasperChristensen@gmail.com;24913824;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;hundesvømning;hundesvømning;lokal;05/12/2017;144
+Fie;Christiansen;29;true;Magnolievej 6, 2200 København NV;FieChristiansen@gmail.com;23947182;true;true;Coach;John;Christensen;Boldgade 17, 2000 Frederiksberg;40421349;true;1;hundesvømning;hundesvømning;lokal;05/12/2017;138
+Krestian;Tullesen;35;false;Kreavej 17, 4000 Roskilde;KrestianTullesen@gmail.com;72483912;true;false;;false;0
+Tulle;Tullesen;30;true;Kreavej 17, 4000 Roskilde;TulleTullesen@gmail.com;81654266;true;false;;false;0
+Daniel;Michelsen;46;false;Makkadallavej 150, 4000 Roskilde;DanielMichelsen@gmail.com;34551672;true;false;;false;0
+Ida;Michelsen;43;true;Makkadallavej 150, 4000 Roskilde;IdaMichelsen@gmail.com;22618845;true;false;;false;0
+Pernille;Mikkelsen;27;true;Grønnevej 15, 2720 Vanløse;PernilleMikkelsen@gmail.com;27515008;true;false;;true;0
+Jan;Mikkelsen;27;false;Grønnevej 15, 2720 Vanløse;JanMikkelsen@gmail.com;66812433;true;false;;true;0
